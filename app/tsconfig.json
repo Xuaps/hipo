@@ -10,7 +10,7 @@
     "noImplicitAny": true,
     "strictNullChecks": true,
     "skipLibCheck": true,
-    "types": ["jest"]
+    "types": ["jest", "node"]
   },
   "exclude": ["cypress/"]
 }
