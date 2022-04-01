@@ -1,4 +1,5 @@
 import React, { Suspense } from 'react';
+import 'regenerator-runtime';
 import mixpanel from 'mixpanel-browser';
 import ReactDOM from 'react-dom';
 import App from './components/App';
