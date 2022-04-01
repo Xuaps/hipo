@@ -5,5 +5,4 @@ cd app
 
 npm run typecheck &&
 npm run test &&
-npx lint-staged &&
-
+npx lint-staged
