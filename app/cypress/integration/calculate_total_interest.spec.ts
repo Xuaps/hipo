@@ -2,23 +2,34 @@ describe('calculate total payed interest', () => {
   it('it should return the total interest for amount, time and rate', () => {
     cy.visit('http://localhost:3000');
 
-    setData({ amount: 80000, rate: 1.3, months: 240 });
+    setData({
+      amount: 80000,
+      months: 240,
+      rate: 1.3,
+      products_price_by_month: { home: 18, life: 28 },
+    });
 
-    totalInterestMustBe(10893.242131806644);
+    totalInterestWithoutProductsMustBe(10893.242131806644);
+    totalInterestWithProductMustBe('home', 15213.242131806644);
+    totalInterestWithProductMustBe('life', 17613.242131806644);
+    totalInterestWithAllProductsMustBe(21933.242131806644);
   });
 });
 
 type Data = {
   amount: number;
-  rate: number;
   months: number;
+  rate: number;
+  products_price_by_month: { [key: string]: number };
 };
 
-const setData = ({ amount, rate, months }: Data) => {
+const setData = ({ amount, months, rate, products_price_by_month }: Data) => {
   cleanBoxes();
   cy.get('input[name="amount"]').type(amount.toString());
-  cy.get('input[name="rate"]').type(rate.toString());
   cy.get('input[name="months"]').type(months.toString());
+  cy.get('input[name="rate"]').type(rate.toString());
+  cy.get('input[name="life"]').type(products_price_by_month.life.toString());
+  cy.get('input[name="home"]').type(products_price_by_month.home.toString());
   cy.get('button').click();
 };
 
@@ -26,10 +37,26 @@ const cleanBoxes = () => {
   cy.get('input[name="amount"]').clear();
   cy.get('input[name="rate"]').clear();
   cy.get('input[name="months"]').clear();
+  cy.get('input[name="life"]').clear();
+  cy.get('input[name="home"]').clear();
 };
 
-const totalInterestMustBe = (expected: number) => {
+const totalInterestWithoutProductsMustBe = (expected: number) => {
   cy.get('[data-testid="total-interest"]').should(
+    'contain.text',
+    expected.toString(),
+  );
+};
+
+const totalInterestWithProductMustBe = (product: string, expected: number) => {
+  cy.get(`[data-testid="total-interest-${product}"]`).should(
+    'contain.text',
+    expected.toString(),
+  );
+};
+
+const totalInterestWithAllProductsMustBe = (expected: number) => {
+  cy.get('[data-testid="total-interest-all"]').should(
     'contain.text',
     expected.toString(),
   );
