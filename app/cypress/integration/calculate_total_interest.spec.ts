@@ -10,8 +10,6 @@ describe('calculate total payed interest', () => {
     });
 
     totalInterestWithoutProductsMustBe(10893.242131806644);
-    totalInterestWithProductMustBe('home', 15213.242131806644);
-    totalInterestWithProductMustBe('life', 17613.242131806644);
     totalInterestWithAllProductsMustBe(21933.242131806644);
   });
 });
@@ -43,13 +41,6 @@ const cleanBoxes = () => {
 
 const totalInterestWithoutProductsMustBe = (expected: number) => {
   cy.get('[data-testid="total-interest"]').should(
-    'contain.text',
-    expected.toString(),
-  );
-};
-
-const totalInterestWithProductMustBe = (product: string, expected: number) => {
-  cy.get(`[data-testid="total-interest-${product}"]`).should(
     'contain.text',
     expected.toString(),
   );
