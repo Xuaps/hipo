@@ -28,7 +28,6 @@ const setData = ({ amount, months, rate, products_price_by_month }: Data) => {
   cy.get('input[name="rate"]').type(rate.toString());
   cy.get('input[name="life"]').type(products_price_by_month.life.toString());
   cy.get('input[name="home"]').type(products_price_by_month.home.toString());
-  cy.get('button').click();
 };
 
 const cleanBoxes = () => {

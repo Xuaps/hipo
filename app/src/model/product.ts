@@ -3,8 +3,7 @@ export type ProductsPriceOverTime = { [key: string]: number[] };
 export const loadProductsPriceOverTime = (
   months: number,
   products_price_by_month: {
-    life: number;
-    home: number;
+    [key: string]: number;
   },
 ): ProductsPriceOverTime => {
   return {

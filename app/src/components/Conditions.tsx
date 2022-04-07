@@ -9,9 +9,14 @@ import {
   ProductsPriceOverTime,
 } from '../model/product';
 
+type ConditionsData = {
+  rate: number;
+  products_price_by_month: { [key: string]: number };
+};
+
 const Conditions = ({ amount, months }: { amount: number; months: number }) => {
-  const [data, setData] = useState({
-    rate: 1.3,
+  const [data, setData] = useState<ConditionsData>({
+    rate: 0,
     products_price_by_month: { life: 0, home: 0 },
   });
   const [amortizationTable, setAmortizationTable] = useState<Payment[]>([]);
@@ -20,8 +25,12 @@ const Conditions = ({ amount, months }: { amount: number; months: number }) => {
     home: [],
   });
 
-  const onCalculate = async () => {
+  const onChange = async (data: ConditionsData) => {
+    setData(data);
+
+    if (!amount || !months) return;
     const { rate, products_price_by_month } = data;
+
     const amortizationTable = loadAmortizationTable(amount, rate, months);
     const productsTable = loadProductsPriceOverTime(
       months,
@@ -40,7 +49,9 @@ const Conditions = ({ amount, months }: { amount: number; months: number }) => {
         type="number"
         name="rate"
         value={data.rate}
-        onChange={(e) => setData({ ...data, rate: parseFloat(e.target.value) })}
+        onChange={(e) =>
+          onChange({ ...data, rate: parseFloat(e.target.value) })
+        }
       />
       Life:
       <input
@@ -49,7 +60,7 @@ const Conditions = ({ amount, months }: { amount: number; months: number }) => {
         name="life"
         value={data.products_price_by_month.life}
         onChange={(e) =>
-          setData({
+          onChange({
             ...data,
             products_price_by_month: {
               ...data.products_price_by_month,
@@ -65,7 +76,7 @@ const Conditions = ({ amount, months }: { amount: number; months: number }) => {
         name="home"
         value={data.products_price_by_month.home}
         onChange={(e) =>
-          setData({
+          onChange({
             ...data,
             products_price_by_month: {
               ...data.products_price_by_month,
@@ -90,9 +101,6 @@ const Conditions = ({ amount, months }: { amount: number; months: number }) => {
           </div>
         </>
       )}
-      <br />
-      <br />
-      <button onClick={onCalculate}> Calculate </button>
       <br />
       <br />
     </>
