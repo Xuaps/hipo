@@ -19,26 +19,17 @@ const Conditions = ({ amount, months }: { amount: number; months: number }) => {
     rate: 0,
     products_price_by_month: { life: 0, home: 0 },
   });
-  const [amortizationTable, setAmortizationTable] = useState<Payment[]>([]);
-  const [productsTable, setProductsTable] = useState<ProductsPriceOverTime>({
-    life: [],
-    home: [],
-  });
+  const amortizationTable: Payment[] =
+    !!amount && !!months
+      ? loadAmortizationTable(amount, data.rate, months)
+      : [];
+  const productsTable: ProductsPriceOverTime =
+    !!amount && !!months
+      ? loadProductsPriceOverTime(months, data.products_price_by_month)
+      : { life: [], home: [] };
 
   const onChange = async (data: ConditionsData) => {
     setData(data);
-
-    if (!amount || !months) return;
-    const { rate, products_price_by_month } = data;
-
-    const amortizationTable = loadAmortizationTable(amount, rate, months);
-    const productsTable = loadProductsPriceOverTime(
-      months,
-      products_price_by_month,
-    );
-
-    setAmortizationTable(amortizationTable);
-    setProductsTable(productsTable);
   };
 
   return (
