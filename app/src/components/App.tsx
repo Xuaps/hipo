@@ -8,7 +8,7 @@ const App = () => {
     defaultValue: {
       amount: 80000,
       months: 240,
-      conditions: 3,
+      conditions: 1,
     },
   });
 
@@ -16,12 +16,14 @@ const App = () => {
     <div>
       <br />
       <br />
+      Amount
       <input
         type="number"
         name="amount"
         value={data.amount}
         onChange={(e) => setData({ ...data, amount: parseInt(e.target.value) })}
       />
+      Months
       <input
         type="number"
         name="months"
