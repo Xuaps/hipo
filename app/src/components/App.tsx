@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
+import useLocalStorageState from 'use-local-storage-state';
 import Conditions from './Conditions';
 
 const App = () => {
-  const [data, setData] = useState({
-    amount: 80000,
-    months: 240,
-    conditions: 1,
+  const [data, setData] = useLocalStorageState('data', {
+    ssr: false,
+    defaultValue: {
+      amount: 80000,
+      months: 240,
+      conditions: 3,
+    },
   });
 
   return (
@@ -27,7 +31,7 @@ const App = () => {
       <br />
       <br />
       {range(data.conditions).map((i) => (
-        <Conditions key={i} months={data.months} amount={data.amount} />
+        <Conditions key={i} id={i} months={data.months} amount={data.amount} />
       ))}
     </div>
   );

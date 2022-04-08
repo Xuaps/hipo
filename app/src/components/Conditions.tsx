@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
+import useLocalStorageState from 'use-local-storage-state';
 import {
   calculateTotalInterest,
   loadAmortizationTable,
@@ -14,11 +15,25 @@ type ConditionsData = {
   products_price_by_month: { [key: string]: number };
 };
 
-const Conditions = ({ amount, months }: { amount: number; months: number }) => {
-  const [data, setData] = useState<ConditionsData>({
-    rate: 0,
-    products_price_by_month: { life: 0, home: 0 },
-  });
+const Conditions = ({
+  id,
+  amount,
+  months,
+}: {
+  id: string | number;
+  amount: number;
+  months: number;
+}) => {
+  const [data, setData] = useLocalStorageState<ConditionsData>(
+    `conditions-${id}`,
+    {
+      ssr: false,
+      defaultValue: {
+        rate: 0,
+        products_price_by_month: { life: 0, home: 0 },
+      },
+    },
+  );
   const amortizationTable: Payment[] =
     !!amount && !!months
       ? loadAmortizationTable(amount, data.rate, months)
