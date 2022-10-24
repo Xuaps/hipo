@@ -55,7 +55,7 @@
     ]
   },
   "dependencies": {
-    "i18next": "^21.6.11",
+    "i18next": "^22.0.2",
     "mixpanel-browser": "^2.45.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
