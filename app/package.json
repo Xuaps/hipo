@@ -59,7 +59,7 @@
     "mixpanel-browser": "^2.45.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "react-i18next": "^13.0.0",
+    "react-i18next": "^14.0.0",
     "use-local-storage-state": "^19.0.2"
   }
 }
