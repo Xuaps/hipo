@@ -27,7 +27,7 @@
     "@types/jest": "^27.0.2",
     "@types/mixpanel-browser": "^2.38.0",
     "@types/node": "^20.0.0",
-    "@typescript-eslint/eslint-plugin": "^7.0.1",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
     "babel-loader": "^9.0.0",
     "css-loader": "^7.1.1",
     "cypress": "^9.4.1",
